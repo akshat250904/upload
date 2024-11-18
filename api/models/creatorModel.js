@@ -18,6 +18,7 @@ const creatorSchema = new Schema({
     role: {
         type: String,
         enum : ["editor","creator"]
+        
     },
     videofile: {
         type: String,
