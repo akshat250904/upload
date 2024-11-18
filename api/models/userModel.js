@@ -1,28 +1,45 @@
-import mongoose, {Schema} from "mongoose"
+import mongoose, { Schema } from "mongoose";
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     username: {
-        type: String,
+      type: String,
     },
     email: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     password: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     avatar: {
-        type: String,
+      type: String,
     },
     role: {
-        type: String,
-        enum : ["editor","creator"]
+      type: String,
+      required: true,
+      enum: ["creator", "editor"], 
     },
     videofile: {
-        type: String,
-    }
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
 
-}, {timestamps: true})
+const User = mongoose.model("User", userSchema);
 
-export const User = mongoose.model("User", userSchema);
+export const Creator = User.discriminator(
+  "Creator",
+  new Schema({
+    role: { type: String, default: "creator" },
+  })
+);
+
+export const Editor = User.discriminator(
+  "Editor",
+  new Schema({
+    role: { type: String, default: "editor" },
+  })
+);
