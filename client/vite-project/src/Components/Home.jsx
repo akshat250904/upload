@@ -13,7 +13,7 @@ export const Home = () => {
         const response = await axios.get("http://localhost:8000/api/creator/getAllEditors");
         
         const editorData = response.data.editors;
-        console.log(editorData);
+
         
         setEditors(editorData);
       } catch (error) {
@@ -49,8 +49,9 @@ export const Home = () => {
           results.push(editors[i].email); // Store the entire editor object
         }
       }
-      console.log(results);
+      // console.log(results);
       setFilteredEditors(results); // Set filteredEditors to the full editor objects
+      // console.log(filteredEditors);
     }
   }, [search, editors]);
 
@@ -77,7 +78,7 @@ export const Home = () => {
                 className="p-2 hover:bg-gray-200 cursor-pointer text-black"
                 onChange={() => setSearch(editor.email)} // Set search to the selected editor's name
               >
-                {editor.email}
+                {editor}
               </li>
             ))}
           </ul>
